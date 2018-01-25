@@ -11,12 +11,11 @@ export class TaskApi implements IAddNewTaskApi {
 
     post(name: string): Observable<string> {
 
-        console.log('TaskApi: ' + name);
-
         if (name === 'error') {
-            return Observable.throw('error forced in the API').delay(1000);
+            return Observable.throw('error forced in the API');
         } else {
-            return Observable.of('abc12358').delay(5000);
+            const random =  new Date().getTime();
+            return Observable.of(random + '').delay(5000);
         }
     }
 }

@@ -1,0 +1,22 @@
+<label>Task name:</label>
+
+<input type="input" placeholder="todo..." 
+  [attr.maxlength]="viewModel.maxLengthTaskName" 
+  [(ngModel)]="viewModel.taskName"
+  [attr.disabled]="viewModel.isLock?'':null"
+  >
+
+<button 
+  (click)="onAddTaskClick($event)"
+  [attr.disabled]="viewModel.isLock?'':null"  
+>
+  Add Task
+</button>
+
+<div class="error" *ngIf="viewModel.errorMessageVisible">
+  {{viewModel.errorMessage}}
+</div>
+
+<div class="success" *ngIf="viewModel.successMessageVisible">
+  {{viewModel.successMessage}}
+</div>

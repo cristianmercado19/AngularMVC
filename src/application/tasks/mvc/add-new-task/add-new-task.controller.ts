@@ -30,7 +30,7 @@ export class AddNewTaskController {
         this.taskService.addNewTask(taskName)
                         .finally(
                             () => {
-                                this.viewModel.lock = false;
+                                this.onAddNewTaskFinish();
                             }
                         )
                         .subscribe(
@@ -39,12 +39,12 @@ export class AddNewTaskController {
                             },
                             (error) => {
                                 this.handleErrorOnAddNewTask(error);
-                                this.unlockView();
                             }
                         );
     }
 
-    private unlockView() {
+    private onAddNewTaskFinish() {
+        this.viewModel.lock = false;
     }
 
     private initializeViewModel() {
