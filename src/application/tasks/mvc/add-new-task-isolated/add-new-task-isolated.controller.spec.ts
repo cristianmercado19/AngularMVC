@@ -1,77 +1,95 @@
-import { AddNewTaskIsolatedCotroller } from '../../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
-import { AddNewTaskService } from '../../../../application/tasks/services/add-new-task-service';
-import { AddNewTaskIsolatedView } from '../../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.view';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { AddNewTaskView } from '../../../../application/tasks/mvc/add-new-task/add-new-task.view';
 
-describe('add-new-task-isolated.controller', () => {
+import { Observable } from 'rxjs/Observable';
 
-    let serviceSpy: AddNewTaskService;
-    let viewSpy: AddNewTaskIsolatedView;
+import {
+    AddNewTaskIsolatedCotroller,
+} from '../../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
+import { AddNewTaskIsolatedView } from '../../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.view';
+import { AddNewTaskService } from '../../../../application/tasks/services/add-new-task-service';
 
-    function createAddNewTaskServiceSpy () {
-        const spy = jasmine.createSpyObj('AddNewTaskService', ['addNewTask']);
+describe('AddNewTaskIsolatedCotroller: ', () => {
 
-        spy.addNewTask = jasmine.createSpy('addNewTask').and.callFake(function () {
-            const observable = Observable.of(1);
-            return observable;
+    const serviceSpy: AddNewTaskService = createAddNewTaskServiceSpy();
+    const viewSpy: AddNewTaskIsolatedView = createAddNewTaskViewSpy();
+
+    let controller: AddNewTaskIsolatedCotroller;
+
+    it('should be created', () => {
+        const taskController = new AddNewTaskIsolatedCotroller(serviceSpy);
+        expect(taskController).not.toBeNull();
+    });
+
+    describe('during the "init" method called', () => {
+
+        beforeEach(function () {
+            // arrange
+            controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+
+            // act
+            controller.init(viewSpy);
         });
 
-        return spy;
-    }
+        it('setMaxLenghTaskName from the view should be called', () => {
+            // act
+            controller.init(viewSpy);
 
-    function createAddNewTaskViewSpy(): AddNewTaskIsolatedView {
-        const spy = jasmine.createSpyObj('AddNewTaskIsolatedView'
-                                        , [
-                                            'lock'
-                                            , 'getTaskName'
-                                            , 'unlock'
-                                            , 'showSuccessfulMessageOnAddNewTask'
-                                            , 'showErrorMessageOnAddNewTask'
-                                            , 'setMaxLenghTaskName'
-                                        ]);
-
-        return spy;
-    }
-
-    beforeEach(function(){
-        serviceSpy = createAddNewTaskServiceSpy();
-        viewSpy = createAddNewTaskViewSpy();
+            // assert
+            expect(viewSpy.setMaxLenghTaskName).toHaveBeenCalled();
+        });
     });
 
-    it('should create', () => {
-        const controller = new AddNewTaskIsolatedCotroller(serviceSpy);
-    });
+    describe('during the "onAddTaskEvent" method called', () => {
 
-    it('setMaxLenghTaskName should be call in the init', () => {
+        beforeEach(function () {
+            // arrange
+            controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+            controller.init(viewSpy);
 
-        // arrange
+            // act
+            controller.onAddTaskEvent();
+        });
 
-        const controller = new AddNewTaskIsolatedCotroller(serviceSpy);
-        viewSpy.setMaxLenghTaskName = (length) => {};
+        it('"lock" from the view should be called', () => {
+            // assert
+            expect(viewSpy.lock).toHaveBeenCalled();
+        });
 
-        spyOn(viewSpy, 'setMaxLenghTaskName').and.callThrough();
+        it('"getTaskName" from the view should be called', () => {
+            // assert
+            expect(viewSpy.getTaskName).toHaveBeenCalled();
+        });
 
-        // act
-        controller.init(viewSpy);
-
-        // assert
-        expect(viewSpy.setMaxLenghTaskName).toHaveBeenCalled();
-    });
-
-    it('lock the view when OnAddTaskEvent is called', () => {
-
-        // arrange
-        const controller = new AddNewTaskIsolatedCotroller(serviceSpy);
-
-        controller.init(viewSpy);
-
-        // act
-        controller.onAddTaskEvent();
-
-        // assert
-        expect(viewSpy.lock).toHaveBeenCalled();
+        it('"addNewTask" from the service should be called', () => {
+            // assert
+            expect(serviceSpy.addNewTask).toHaveBeenCalled();
+        });
     });
 
 });
+
+
+function createAddNewTaskServiceSpy() {
+    const spy = jasmine.createSpyObj('AddNewTaskService', ['addNewTask']);
+
+    spy.addNewTask = jasmine.createSpy('addNewTask').and.callFake(function () {
+        const observable = Observable.of(1);
+        return observable;
+    });
+
+    return spy;
+}
+
+function createAddNewTaskViewSpy(): AddNewTaskIsolatedView {
+    const spy = jasmine.createSpyObj('AddNewTaskIsolatedView'
+        , [
+            'lock'
+            , 'getTaskName'
+            , 'unlock'
+            , 'showSuccessfulMessageOnAddNewTask'
+            , 'showErrorMessageOnAddNewTask'
+            , 'setMaxLenghTaskName'
+        ]);
+
+    return spy;
+}
