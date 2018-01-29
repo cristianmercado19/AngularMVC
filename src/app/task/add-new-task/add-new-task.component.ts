@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IAddNewTaskView } from '../../../application/tasks/mvc/add-new-task/add-new-task.view';
+import { AddNewTaskView } from '../../../application/tasks/mvc/add-new-task/add-new-task.view';
 import { AddNewTaskController } from '../../../application/tasks/mvc/add-new-task/add-new-task.controller';
 import { AddNewTaskViewModel } from '../../../application/tasks/mvc/add-new-task/add-new-task.model';
 
@@ -8,7 +8,7 @@ import { AddNewTaskViewModel } from '../../../application/tasks/mvc/add-new-task
   templateUrl: './add-new-task.component.html',
   styleUrls: ['./add-new-task.component.css']
 })
-export class AddNewTaskComponent implements OnInit, IAddNewTaskView {
+export class AddNewTaskComponent implements OnInit, AddNewTaskView {
 
   viewModel = new AddNewTaskViewModel();
 
@@ -35,7 +35,7 @@ export class AddNewTaskComponent implements OnInit, IAddNewTaskView {
     this.cleanErrorMessage();
     this.cleanSuccessMessage();
   }
-  showTaskAddedSuccessfulyMessage(taskId: string) {
+  showTaskAddedSuccessfulyMessage(taskId: number) {
     this.successMessage = 'A new task has been added with id: ' + taskId;
   }
 

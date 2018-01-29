@@ -1,4 +1,4 @@
 import { Observable } from 'rxjs/Observable';
-export interface IAddNewTaskService {
-    addNewTask(taskName: string): Observable<string>;
+export interface AddNewTaskService {
+    addNewTask(taskName: string): Observable<number>;
 }

@@ -1,20 +1,20 @@
-import { IAddNewTaskView } from './add-new-task.view';
-import { IAddNewTaskService } from '../../services/add-new-task-service';
+import { AddNewTaskView } from './add-new-task.view';
+import { AddNewTaskService } from '../../services/add-new-task-service';
 import { AddNewTaskViewModel } from './add-new-task.model';
 
 import 'rxjs/add/operator/finally';
 
 export class AddNewTaskController {
     private readonly MAX_LENGTH_TASK_NAME = 20;
-    private view: IAddNewTaskView;
+    private view: AddNewTaskView;
     private viewModel: AddNewTaskViewModel;
 
     constructor(
-        private taskService: IAddNewTaskService,
+        private taskService: AddNewTaskService,
     ) {
     }
 
-    init(view: IAddNewTaskView) {
+    init(view: AddNewTaskView) {
         this.initializeViewModel();
 
         this.view = view;
@@ -57,7 +57,7 @@ export class AddNewTaskController {
         this.viewModel.successMessageVisible = false;
     }
 
-    private newTaskSuccessfulyAdded(taskId: string) {
+    private newTaskSuccessfulyAdded(taskId: number) {
         this.view.cleanMessages();
         this.viewModel.taskName = '';
         this.viewModel.showSuccess();

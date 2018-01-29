@@ -1,5 +1,8 @@
 import { Task } from '../entities/task.model';
+import { Observable } from 'rxjs/Observable';
 
 export interface TaskListService {
-    getListOfTasks(): Array<Task>;
+
+    getListOfTasks(): Observable<Array<Task>>;
 }
+

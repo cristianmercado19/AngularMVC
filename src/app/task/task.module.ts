@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
 import { AddNewTaskController } from '../../application/tasks/mvc/add-new-task/add-new-task.controller';
-import { TaskService } from '../../application/tasks/services/task.service';
+import { InMemoryTaskService } from '../../application/tasks/services/in-memory-task.service';
 import { AddNewTaskIsolatedComponent } from './add-new-task-isolated/add-new-task-isolated.component';
 import { AddNewTaskIsolatedCotroller } from '../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
 
@@ -39,7 +39,7 @@ export class TaskModule { }
 
 export function addNewTaskControllerFactory () {
   const api = new TaskApi();
-  const service = new TaskService(api);
+  const service = new InMemoryTaskService(api);
   const controller = new AddNewTaskController(service);
 
   return controller;
@@ -47,7 +47,7 @@ export function addNewTaskControllerFactory () {
 
 export function addNewTaskIsolatedCotrollerFactory() {
   const api = new TaskApi();
-  const service = new TaskService(api);
+  const service = new InMemoryTaskService(api);
   const controller = new AddNewTaskIsolatedCotroller(service);
 
   return controller;

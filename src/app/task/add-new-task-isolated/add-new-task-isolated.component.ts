@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IAddNewTaskIsolatedView } from '../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.view';
+import { AddNewTaskIsolatedView } from '../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.view';
 import { AddNewTaskIsolatedCotroller } from '../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
 
 @Component({
@@ -7,7 +7,7 @@ import { AddNewTaskIsolatedCotroller } from '../../../application/tasks/mvc/add-
   templateUrl: './add-new-task-isolated.component.html',
   styleUrls: ['./add-new-task-isolated.component.css']
 })
-export class AddNewTaskIsolatedComponent implements OnInit, IAddNewTaskIsolatedView {
+export class AddNewTaskIsolatedComponent implements OnInit, AddNewTaskIsolatedView {
 
   viewModel = new AddNewTaskIsolatedModel();
 
@@ -32,7 +32,7 @@ export class AddNewTaskIsolatedComponent implements OnInit, IAddNewTaskIsolatedV
   unlock(): void {
     this.viewModel.isLock = false;
   }
-  showSuccessfulMessageOnAddNewTask(taskId: string) {
+  showSuccessfulMessageOnAddNewTask(taskId: number) {
     this.viewModel.setSuccessMessage('A new task has been added with id: ' + taskId);
   }
   showErrorMessageOnAddNewTask() {

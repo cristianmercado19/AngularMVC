@@ -1,5 +1,5 @@
-import { IAddNewTaskService } from '../../services/add-new-task-service';
-import { IAddNewTaskIsolatedView } from './add-new-task-isolated.view';
+import { AddNewTaskService } from '../../services/add-new-task-service';
+import { AddNewTaskIsolatedView } from './add-new-task-isolated.view';
 
 import 'rxjs/add/operator/finally';
 
@@ -7,14 +7,14 @@ export class AddNewTaskIsolatedCotroller {
 
     private readonly MAX_LENGTH_TASK_NAME = 20;
 
-    private view: IAddNewTaskIsolatedView;
+    private view: AddNewTaskIsolatedView;
 
     constructor(
-        private taskService: IAddNewTaskService,
+        private taskService: AddNewTaskService,
     ) {
     }
 
-    init(view: IAddNewTaskIsolatedView) {
+    init(view: AddNewTaskIsolatedView) {
         this.view = view;
         this.view.setMaxLenghTaskName(this.MAX_LENGTH_TASK_NAME);
     }
@@ -31,7 +31,7 @@ export class AddNewTaskIsolatedCotroller {
                             }
                         )
                         .subscribe(
-                            (taskId: string) => {
+                            (taskId: number) => {
                                 this.newTaskSuccessfulyAdded(taskId);
                             },
                             (error) => {
@@ -44,7 +44,7 @@ export class AddNewTaskIsolatedCotroller {
         this.view.unlock();
     }
 
-    private newTaskSuccessfulyAdded(taskId: string) {
+    private newTaskSuccessfulyAdded(taskId: number) {
         this.view.showSuccessfulMessageOnAddNewTask(taskId);
     }
 
