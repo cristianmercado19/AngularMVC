@@ -64,6 +64,42 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
             // assert
             expect(serviceSpy.addNewTask).toHaveBeenCalled();
         });
+
+        describe('during the "addNewTask" from the service', () => {
+
+            it('"unlock" from the view should be called', () => {
+                // arrange
+                controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                controller.init(viewSpy);
+
+                // act
+                controller.onAddTaskEvent();
+
+                // assert
+                expect(viewSpy.unlock).toHaveBeenCalled();
+            });
+
+            it('"showSuccessfulMessageOnAddNewTask" from the view should be called when suscribe is success', () => {
+                const taskId = 1234;
+
+                // arrange
+                serviceSpy.addNewTask = jasmine.createSpy('addNewTask').and.callFake(function () {
+                    const observable = Observable.of(taskId);
+                    return observable;
+                });
+
+                controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                controller.init(viewSpy);
+
+                // act
+                controller.onAddTaskEvent();
+
+
+                expect(viewSpy.showSuccessfulMessageOnAddNewTask).toHaveBeenCalled();
+                expect(viewSpy.showSuccessfulMessageOnAddNewTask).toHaveBeenCalledWith(taskId);
+            });
+
+        });
     });
 
 });
