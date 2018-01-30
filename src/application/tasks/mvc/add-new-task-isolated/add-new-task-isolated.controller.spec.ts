@@ -1,6 +1,7 @@
 import 'rxjs/add/observable/of';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 
 import {
     AddNewTaskIsolatedCotroller,
@@ -50,42 +51,61 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
             controller.onAddTaskEvent();
         });
 
-        it('"lock" from the view should be called', () => {
+        it('view."lock" should be called', () => {
             // assert
             expect(viewSpy.lock).toHaveBeenCalled();
         });
 
-        it('"getTaskName" from the view should be called', () => {
+        it('view."getTaskName" should be called', () => {
             // assert
             expect(viewSpy.getTaskName).toHaveBeenCalled();
         });
 
-        it('"addNewTask" from the service should be called', () => {
+        it('service."addNewTask" should be called', () => {
             // assert
             expect(serviceSpy.addNewTask).toHaveBeenCalled();
         });
 
-        describe('during the "addNewTask" from the service', () => {
+        describe('during service."addNewTask"', () => {
 
-            it('"unlock" from the view should be called', () => {
-                // arrange
-                controller = new AddNewTaskIsolatedCotroller(serviceSpy);
-                controller.init(viewSpy);
+            describe('when it is successful', () => {
 
-                // act
-                controller.onAddTaskEvent();
+                it('view."unlock" should be called', () => {
+                    // arrange
+                    controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                    controller.init(viewSpy);
 
-                // assert
-                expect(viewSpy.unlock).toHaveBeenCalled();
+                    // act
+                    controller.onAddTaskEvent();
+
+                    // assert
+                    expect(viewSpy.unlock).toHaveBeenCalled();
+                });
+
+                it('view."showSuccessfulMessageOnAddNewTask" should be called', () => {
+                    const taskId = 1234;
+
+                    // arrange
+                    serviceSpy.addNewTask = jasmine.createSpy('addNewTask').and.callFake(function () {
+                        const observable = Observable.of(taskId);
+                        return observable;
+                    });
+
+                    controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                    controller.init(viewSpy);
+
+                    // act
+                    controller.onAddTaskEvent();
+
+                    expect(viewSpy.showSuccessfulMessageOnAddNewTask).toHaveBeenCalled();
+                    expect(viewSpy.showSuccessfulMessageOnAddNewTask).toHaveBeenCalledWith(taskId);
+                });
             });
 
-            it('"showSuccessfulMessageOnAddNewTask" from the view should be called when suscribe is success', () => {
-                const taskId = 1234;
-
+            describe('when it is failed', () => {
                 // arrange
                 serviceSpy.addNewTask = jasmine.createSpy('addNewTask').and.callFake(function () {
-                    const observable = Observable.of(taskId);
-                    return observable;
+                    return Observable.throw('forced error in the API');
                 });
 
                 controller = new AddNewTaskIsolatedCotroller(serviceSpy);
@@ -94,11 +114,16 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
                 // act
                 controller.onAddTaskEvent();
 
+                it('view."unlock" should be called', () => {
+                    // assert
+                    expect(viewSpy.unlock).toHaveBeenCalled();
+                });
 
-                expect(viewSpy.showSuccessfulMessageOnAddNewTask).toHaveBeenCalled();
-                expect(viewSpy.showSuccessfulMessageOnAddNewTask).toHaveBeenCalledWith(taskId);
+                it('view."showErrorMessageOnAddNewTask" should be called', () => {
+                    // assert
+                    expect(viewSpy.showErrorMessageOnAddNewTask).toHaveBeenCalled();
+                });
             });
-
         });
     });
 
