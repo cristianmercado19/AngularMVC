@@ -39,7 +39,7 @@ export class TaskModule { }
 
 export function addNewTaskControllerFactory () {
   const api = new TaskApi();
-  const service = new InMemoryTaskService(api);
+  const service = new InMemoryTaskService();
   const controller = new AddNewTaskController(service);
 
   return controller;
@@ -47,7 +47,7 @@ export function addNewTaskControllerFactory () {
 
 export function addNewTaskIsolatedCotrollerFactory() {
   const api = new TaskApi();
-  const service = new InMemoryTaskService(api);
+  const service = new InMemoryTaskService();
   const controller = new AddNewTaskIsolatedCotroller(service);
 
   return controller;

@@ -15,12 +15,15 @@ export class AddNewTaskController {
     }
 
     init(view: AddNewTaskView) {
-        this.initializeViewModel();
-
         this.view = view;
+        this.initializeViewModel();
+        this.initializeView();
+    }
+    private initializeView() {
         this.view.setViewModel(this.viewModel);
         this.view.cleanMessages();
     }
+
     onAddTaskEvent() {
         this.viewModel.lock = true;
         this.view.cleanMessages();
