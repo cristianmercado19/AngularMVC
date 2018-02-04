@@ -5,6 +5,8 @@ import { TaskListService } from './task-list.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
+
 
 import { Task } from '../entities/task.model';
 
@@ -28,7 +30,7 @@ export class InMemoryTaskService implements AddNewTaskService, TaskListService {
 
         this.tasks.push(task);
 
-        return Observable.of(randomId);
+        return Observable.of(randomId).delay(2000);
     }
 
 }

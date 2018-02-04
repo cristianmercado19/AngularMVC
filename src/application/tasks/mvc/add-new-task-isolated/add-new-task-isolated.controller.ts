@@ -1,7 +1,9 @@
+import { TaskStoreService } from './../../services/task-store-service';
 import { AddNewTaskService } from '../../services/add-new-task-service';
 import { AddNewTaskIsolatedView } from './add-new-task-isolated.view';
 
 import 'rxjs/add/operator/finally';
+import { Task } from '../../entities/task.model';
 
 export class AddNewTaskIsolatedCotroller {
 
@@ -11,6 +13,7 @@ export class AddNewTaskIsolatedCotroller {
 
     constructor(
         private taskService: AddNewTaskService,
+        private taskSimpleStoreService: TaskStoreService,
     ) {
     }
 
@@ -32,7 +35,11 @@ export class AddNewTaskIsolatedCotroller {
                         )
                         .subscribe(
                             (taskId: number) => {
-                                this.newTaskSuccessfulyAdded(taskId);
+                                const task = new Task();
+                                task.id = taskId;
+                                task.name = taskName;
+
+                                this.newTaskSuccessfulyAdded(task);
                             },
                             (error) => {
                                 this.handleErrorOnAddNewTask(error);
@@ -44,8 +51,9 @@ export class AddNewTaskIsolatedCotroller {
         this.view.unlock();
     }
 
-    private newTaskSuccessfulyAdded(taskId: number) {
-        this.view.showSuccessfulMessageOnAddNewTask(taskId);
+    private newTaskSuccessfulyAdded(task: Task) {
+        this.taskSimpleStoreService.addNewTask(task);
+        this.view.showSuccessfulMessageOnAddNewTask(task.id);
     }
 
     private handleErrorOnAddNewTask(error: any) {
