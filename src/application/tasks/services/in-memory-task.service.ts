@@ -20,7 +20,7 @@ export class InMemoryTaskService implements AddNewTaskService, TaskListService {
     constructor () {
     }
 
-    addNewTask(taskName: string): Observable<number> {
+    addNewTask(taskName: string): Observable<Task> {
 
         const randomId =  new Date().getTime();
 
@@ -30,7 +30,7 @@ export class InMemoryTaskService implements AddNewTaskService, TaskListService {
 
         this.tasks.push(task);
 
-        return Observable.of(randomId).delay(2000);
+        return Observable.of(task).delay(2000);
     }
 
 }

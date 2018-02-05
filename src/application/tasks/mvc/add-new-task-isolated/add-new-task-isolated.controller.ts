@@ -34,11 +34,7 @@ export class AddNewTaskIsolatedCotroller {
                             }
                         )
                         .subscribe(
-                            (taskId: number) => {
-                                const task = new Task();
-                                task.id = taskId;
-                                task.name = taskName;
-
+                            (task) => {
                                 this.newTaskSuccessfulyAdded(task);
                             },
                             (error) => {

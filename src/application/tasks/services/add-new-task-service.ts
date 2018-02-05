@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { Task } from '../entities/task.model';
 export interface AddNewTaskService {
-    addNewTask(taskName: string): Observable<number>;
+    addNewTask(taskName: string): Observable<Task>;
 }

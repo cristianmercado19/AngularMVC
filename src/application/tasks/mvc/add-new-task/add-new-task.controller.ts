@@ -37,8 +37,8 @@ export class AddNewTaskController {
                             }
                         )
                         .subscribe(
-                            (taskId) => {
-                                this.newTaskSuccessfulyAdded(taskId);
+                            (task) => {
+                                this.newTaskSuccessfulyAdded(task.id);
                             },
                             (error) => {
                                 this.handleErrorOnAddNewTask(error);
