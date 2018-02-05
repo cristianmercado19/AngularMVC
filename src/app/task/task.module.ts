@@ -13,6 +13,8 @@ import { AddNewTaskIsolatedComponent } from './add-new-task-isolated/add-new-tas
 import { AddNewTaskIsolatedCotroller } from '../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
 import { SummaryComponent } from './summary/summary.component';
 import { InMemoryTaskService } from '../../application/tasks/services/in-memory-task.service';
+import { ListComponent } from './list/list.component';
+import { ListController } from '../../application/tasks/mvc/list/list.controller';
 
 const storeService = new TaskSimpleStoreService();
 const api = new TaskApiMock();
@@ -28,7 +30,9 @@ const service = new InMemoryTaskService(api, storeService);
     AddNewTaskComponent,
     AddNewTaskIsolatedComponent,
     SummaryComponent
-  ],
+,
+    ListComponent
+],
   providers: [
     {
       provide: AddNewTaskController,
@@ -41,12 +45,17 @@ const service = new InMemoryTaskService(api, storeService);
     {
       provide: SummaryController,
       useFactory: summaryControllerFactory
+    },
+    {
+      provide: ListController,
+      useFactory: listControllerFactory
     }
   ],
   exports: [
     AddNewTaskComponent,
     AddNewTaskIsolatedComponent,
     SummaryComponent,
+    ListComponent,
   ]
 })
 export class TaskModule { }
@@ -67,6 +76,13 @@ export function addNewTaskIsolatedCotrollerFactory() {
 export function summaryControllerFactory() {
 
   const controller = new SummaryController(storeService);
+
+  return controller;
+}
+
+export function listControllerFactory() {
+
+  const controller = new ListController(storeService);
 
   return controller;
 }

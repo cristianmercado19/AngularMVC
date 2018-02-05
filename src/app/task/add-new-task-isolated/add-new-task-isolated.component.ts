@@ -5,7 +5,6 @@ import { AddNewTaskIsolatedCotroller } from '../../../application/tasks/mvc/add-
 @Component({
   selector: 'app-add-new-task-isolated',
   templateUrl: './add-new-task-isolated.component.html',
-  styleUrls: ['./add-new-task-isolated.component.css']
 })
 export class AddNewTaskIsolatedComponent implements OnInit, AddNewTaskIsolatedView {
 

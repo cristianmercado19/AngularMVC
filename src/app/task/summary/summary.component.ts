@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit, SummaryView {
 
-  private total = 0;
+  total = 0;
 
   setTotalCount(newTotal: number) {
     this.total = newTotal;

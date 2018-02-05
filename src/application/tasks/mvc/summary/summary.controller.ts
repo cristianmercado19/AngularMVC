@@ -5,7 +5,6 @@ export class SummaryController {
 
     private view: SummaryView;
 
-
     constructor(
         private taskStoreService: TaskStoreService
     ) {
