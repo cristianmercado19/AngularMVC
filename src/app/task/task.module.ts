@@ -1,6 +1,6 @@
 import { TaskSimpleStoreService } from './../../application/tasks/services/task-simple-store.service';
 import { SummaryController } from './../../application/tasks/mvc/summary/summary.controller';
-import { TaskApi } from './../../application/tasks/api/task.api';
+import { TaskApiMock } from './../../application/tasks/api/task-mock.api';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -8,14 +8,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
 import { AddNewTaskController } from '../../application/tasks/mvc/add-new-task/add-new-task.controller';
-import { InMemoryTaskService } from '../../application/tasks/services/in-memory-task.service';
+
 import { AddNewTaskIsolatedComponent } from './add-new-task-isolated/add-new-task-isolated.component';
 import { AddNewTaskIsolatedCotroller } from '../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
 import { SummaryComponent } from './summary/summary.component';
+import { InMemoryTaskService } from '../../application/tasks/services/in-memory-task.service';
 
-const api = new TaskApi();
-const service = new InMemoryTaskService();
 const storeService = new TaskSimpleStoreService();
+const api = new TaskApiMock();
+const service = new InMemoryTaskService(api, storeService);
 
 @NgModule({
   imports: [
@@ -58,7 +59,7 @@ export function addNewTaskControllerFactory() {
 }
 
 export function addNewTaskIsolatedCotrollerFactory() {
-  const controller = new AddNewTaskIsolatedCotroller(service, storeService);
+  const controller = new AddNewTaskIsolatedCotroller(service);
 
   return controller;
 }

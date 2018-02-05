@@ -6,31 +6,51 @@ import { TaskListService } from './task-list.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/take';
 
 import { Task } from '../entities/task.model';
+import { TaskStoreService } from './task-store-service';
 
 export class InMemoryTaskService implements AddNewTaskService, TaskListService {
-    private tasks: Array<Task> = [];
     getListOfTasks(): Observable<Array<Task>> {
 
-        return Observable.of(this.tasks);
+        const tasks: Array<Task> = [];
+
+        return Observable.of(tasks);
     }
 
-    constructor () {
+    constructor (
+        private taskApi: IAddNewTaskApi,
+        private taskStorage: TaskStoreService,
+    ) {
+    }
+
+    private createNewTask(id: number, name: string): Task {
+        const task = new Task();
+        task.id = id;
+        task.name = name;
+
+        return task;
     }
 
     addNewTask(taskName: string): Observable<Task> {
 
-        const randomId =  new Date().getTime();
+        return this.taskApi.post(taskName)
+                    .switchMap(
+                        (taskId) => {
+                            const newTask = this.createNewTask(taskId, taskName);
 
-        const task = new Task();
-        task.id = randomId;
-        task.name = taskName;
+                            this.taskStorage.addNewTask(newTask);
 
-        this.tasks.push(task);
-
-        return Observable.of(task).delay(2000);
+                            return Observable.of(newTask);
+                        }
+                    )
+                    .take(1)
+                    .finally(
+                        () => {}
+                    );
     }
 
 }
