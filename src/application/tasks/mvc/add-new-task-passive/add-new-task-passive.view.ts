@@ -1,4 +1,4 @@
-export interface AddNewTaskIsolatedView {
+export interface AddNewTaskPassiveView {
 
     lock(): void;
     getTaskName(): string;

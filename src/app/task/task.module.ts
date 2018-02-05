@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
 import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
 import { AddNewTaskController } from '../../application/tasks/mvc/add-new-task/add-new-task.controller';
 
-import { AddNewTaskIsolatedComponent } from './add-new-task-isolated/add-new-task-isolated.component';
-import { AddNewTaskIsolatedCotroller } from '../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
+import { AddNewTaskPassiveComponent } from './add-new-task-passive/add-new-task-passive.component';
+import { AddNewTaskPassiveCotroller } from '../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.controller';
 import { SummaryComponent } from './summary/summary.component';
 import { InMemoryTaskService } from '../../application/tasks/services/in-memory-task.service';
 import { ListComponent } from './list/list.component';
@@ -28,7 +28,7 @@ const service = new InMemoryTaskService(api, storeService);
   ],
   declarations: [
     AddNewTaskComponent,
-    AddNewTaskIsolatedComponent,
+    AddNewTaskPassiveComponent,
     SummaryComponent
 ,
     ListComponent
@@ -39,8 +39,8 @@ const service = new InMemoryTaskService(api, storeService);
       useFactory: addNewTaskControllerFactory
     },
     {
-      provide: AddNewTaskIsolatedCotroller,
-      useFactory: addNewTaskIsolatedCotrollerFactory
+      provide: AddNewTaskPassiveCotroller,
+      useFactory: addNewTaskPassiveCotrollerFactory
     },
     {
       provide: SummaryController,
@@ -53,7 +53,7 @@ const service = new InMemoryTaskService(api, storeService);
   ],
   exports: [
     AddNewTaskComponent,
-    AddNewTaskIsolatedComponent,
+    AddNewTaskPassiveComponent,
     SummaryComponent,
     ListComponent,
   ]
@@ -67,8 +67,8 @@ export function addNewTaskControllerFactory() {
   return controller;
 }
 
-export function addNewTaskIsolatedCotrollerFactory() {
-  const controller = new AddNewTaskIsolatedCotroller(service);
+export function addNewTaskPassiveCotrollerFactory() {
+  const controller = new AddNewTaskPassiveCotroller(service);
 
   return controller;
 }

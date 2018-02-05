@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AddNewTaskIsolatedView } from '../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.view';
-import { AddNewTaskIsolatedCotroller } from '../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
+import { AddNewTaskPassiveView } from '../../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.view';
+import { AddNewTaskPassiveCotroller } from '../../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.controller';
 
 @Component({
-  selector: 'app-add-new-task-isolated',
-  templateUrl: './add-new-task-isolated.component.html',
+  selector: 'app-add-new-task-passive',
+  templateUrl: './add-new-task-passive.component.html',
 })
-export class AddNewTaskIsolatedComponent implements OnInit, AddNewTaskIsolatedView {
+export class AddNewTaskPassiveComponent implements OnInit, AddNewTaskPassiveView {
 
-  viewModel = new AddNewTaskIsolatedModel();
+  viewModel = new AddNewTaskPassiveModel();
 
   constructor(
-    private controller: AddNewTaskIsolatedCotroller
+    private controller: AddNewTaskPassiveCotroller
   ) { }
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class AddNewTaskIsolatedComponent implements OnInit, AddNewTaskIsolatedVi
 
 }
 
-export class AddNewTaskIsolatedModel {
+export class AddNewTaskPassiveModel {
   isLock = false;
   taskName: string;
   maxLengthTaskName = 100000;

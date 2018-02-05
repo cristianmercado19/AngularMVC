@@ -4,20 +4,20 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
 import {
-    AddNewTaskIsolatedCotroller,
-} from '../../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.controller';
-import { AddNewTaskIsolatedView } from '../../../../application/tasks/mvc/add-new-task-isolated/add-new-task-isolated.view';
+    AddNewTaskPassiveCotroller,
+} from '../../../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.controller';
+import { AddNewTaskPassiveView } from '../../../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.view';
 import { AddNewTaskService } from '../../../../application/tasks/services/add-new-task-service';
 
-describe('AddNewTaskIsolatedCotroller: ', () => {
+describe('AddNewTaskPassiveCotroller: ', () => {
 
     const serviceSpy: AddNewTaskService = createAddNewTaskServiceSpy();
-    const viewSpy: AddNewTaskIsolatedView = createAddNewTaskViewSpy();
+    const viewSpy: AddNewTaskPassiveView = createAddNewTaskViewSpy();
 
-    let controller: AddNewTaskIsolatedCotroller;
+    let controller: AddNewTaskPassiveCotroller;
 
     it('should be created', () => {
-        const taskController = new AddNewTaskIsolatedCotroller(serviceSpy);
+        const taskController = new AddNewTaskPassiveCotroller(serviceSpy);
         expect(taskController).not.toBeNull();
     });
 
@@ -25,7 +25,7 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
 
         beforeEach(function () {
             // arrange
-            controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+            controller = new AddNewTaskPassiveCotroller(serviceSpy);
 
             // act
             controller.init(viewSpy);
@@ -44,7 +44,7 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
 
         beforeEach(function () {
             // arrange
-            controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+            controller = new AddNewTaskPassiveCotroller(serviceSpy);
             controller.init(viewSpy);
 
             // act
@@ -72,7 +72,7 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
 
                 it('view."unlock" should be called', () => {
                     // arrange
-                    controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                    controller = new AddNewTaskPassiveCotroller(serviceSpy);
                     controller.init(viewSpy);
 
                     // act
@@ -91,7 +91,7 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
                         return observable;
                     });
 
-                    controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                    controller = new AddNewTaskPassiveCotroller(serviceSpy);
                     controller.init(viewSpy);
 
                     // act
@@ -108,7 +108,7 @@ describe('AddNewTaskIsolatedCotroller: ', () => {
                     return Observable.throw('forced error in the API');
                 });
 
-                controller = new AddNewTaskIsolatedCotroller(serviceSpy);
+                controller = new AddNewTaskPassiveCotroller(serviceSpy);
                 controller.init(viewSpy);
 
                 // act
@@ -141,8 +141,8 @@ function createAddNewTaskServiceSpy() {
     return spy;
 }
 
-function createAddNewTaskViewSpy(): AddNewTaskIsolatedView {
-    const spy = jasmine.createSpyObj('AddNewTaskIsolatedView'
+function createAddNewTaskViewSpy(): AddNewTaskPassiveView {
+    const spy = jasmine.createSpyObj('AddNewTaskPassiveView'
         , [
             'lock'
             , 'getTaskName'

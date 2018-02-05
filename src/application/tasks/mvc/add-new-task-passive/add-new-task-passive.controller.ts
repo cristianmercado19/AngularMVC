@@ -1,24 +1,24 @@
 import { TaskStoreService } from './../../services/task-store-service';
 import { AddNewTaskService } from '../../services/add-new-task-service';
-import { AddNewTaskIsolatedView } from './add-new-task-isolated.view';
+import { AddNewTaskPassiveView } from './add-new-task-passive.view';
 
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/take';
 
 import { Task } from '../../entities/task.model';
 
-export class AddNewTaskIsolatedCotroller {
+export class AddNewTaskPassiveCotroller {
 
     private readonly MAX_LENGTH_TASK_NAME = 20;
 
-    private view: AddNewTaskIsolatedView;
+    private view: AddNewTaskPassiveView;
 
     constructor(
         private taskService: AddNewTaskService,
     ) {
     }
 
-    init(view: AddNewTaskIsolatedView) {
+    init(view: AddNewTaskPassiveView) {
         this.view = view;
         this.view.setMaxLenghTaskName(this.MAX_LENGTH_TASK_NAME);
     }
