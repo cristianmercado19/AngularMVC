@@ -4,7 +4,7 @@ import { Task } from '../entities/task.model';
 
 export class TaskSimpleStoreService implements TaskStoreService {
     private state = new TaskState();
-    private listeners = [];
+    private listeners: Array<()=> void> = [];
 
     constructor() {
     }

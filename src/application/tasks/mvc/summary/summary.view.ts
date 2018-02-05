@@ -1,4 +1,4 @@
 export interface SummaryView {
 
-    setTotalCount(newTotal: number);
+    setTotalCount(newTotal: number): void;
 }

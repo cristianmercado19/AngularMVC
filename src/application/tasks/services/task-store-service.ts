@@ -7,7 +7,7 @@ export interface TaskStoreService {
 
     subscribe(listener: () => void): Unsubscribe;
 
-    addNewTask(newTask: Task);
+    addNewTask(newTask: Task): void;
 }
 
 export type Unsubscribe = () => void;

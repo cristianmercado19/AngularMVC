@@ -2,5 +2,5 @@ import { Task } from '../../entities/task.model';
 
 export interface ListTaskView {
 
-    setTasks(tasks: Array<Task>);
+    setTasks(tasks: Array<Task>): void;
 }
