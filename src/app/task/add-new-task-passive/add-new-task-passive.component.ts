@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AddNewTaskPassiveView } from '../../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.view';
-import { AddNewTaskPassiveCotroller } from '../../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.controller';
+import { AddNewTaskPassiveView } from 'task-app-pkg/dist/tasks-module/mvc/add-new-task-passive/add-new-task-passive.view';
+import { AddNewTaskPassiveCotroller } from 'task-app-pkg/dist/tasks-module/mvc/add-new-task-passive/add-new-task-passive.controller';
 
 @Component({
   selector: 'app-add-new-task-passive',

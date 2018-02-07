@@ -1,5 +1,5 @@
-import { SummaryView } from './../../../application/tasks/mvc/summary/summary.view';
-import { SummaryController } from './../../../application/tasks/mvc/summary/summary.controller';
+import { SummaryView } from 'task-app-pkg/dist/tasks-module/mvc/summary/summary.view';
+import { SummaryController } from 'task-app-pkg/dist/tasks-module/mvc/summary/summary.controller';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,20 +1,21 @@
-import { TaskSimpleStoreService } from './../../application/tasks/services/task-simple-store.service';
-import { SummaryController } from './../../application/tasks/mvc/summary/summary.controller';
-import { TaskApiMock } from './../../application/tasks/api/task-mock.api';
+import { TaskSimpleStoreService } from 'task-app-pkg/dist/tasks-module/services/task-simple-store.service';
+import { SummaryController } from 'task-app-pkg/dist/tasks-module/mvc/summary/summary.controller';
+import { TaskApiMock } from 'task-app-pkg/dist/tasks-module/api/task-mock.api';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
-import { AddNewTaskController } from '../../application/tasks/mvc/add-new-task/add-new-task.controller';
+import { AddNewTaskController } from 'task-app-pkg/dist/tasks-module/mvc/add-new-task/add-new-task.controller';
 
 import { AddNewTaskPassiveComponent } from './add-new-task-passive/add-new-task-passive.component';
-import { AddNewTaskPassiveCotroller } from '../../application/tasks/mvc/add-new-task-passive/add-new-task-passive.controller';
+import { AddNewTaskPassiveCotroller } from 'task-app-pkg/dist/tasks-module/mvc/add-new-task-passive/add-new-task-passive.controller';
 import { SummaryComponent } from './summary/summary.component';
-import { InMemoryTaskService } from '../../application/tasks/services/in-memory-task.service';
+import { InMemoryTaskService } from 'task-app-pkg/dist/tasks-module/services/in-memory-task.service';
 import { ListComponent } from './list/list.component';
-import { ListController } from '../../application/tasks/mvc/list/list.controller';
+import { ListController } from 'task-app-pkg/dist/tasks-module/mvc/list/list.controller';
+
 
 const storeService = new TaskSimpleStoreService();
 const api = new TaskApiMock();
